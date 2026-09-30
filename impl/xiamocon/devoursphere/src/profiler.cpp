@@ -153,7 +153,7 @@ void Profiler::drawOverlay(const g2::Surface &band, int bandY) {
   g2::Graphics2D g(band);
   g.setClipRect(0, 0, band.width, band.height);
   // Monospace, so the columns do not dance as the digits change
-  g.setFont(&ShapoSansMono_s08c07);
+  g.setFont(&g2::ShapoSansMono_s08c07);
   // Frame coordinates to band coordinates. Anything outside this band is
   // clipped away, so a line crossing the boundary is drawn in both bands and
   // comes out seamless.

@@ -452,7 +452,7 @@ class Renderer {
   int tablePage_ = 0;
   // The layout showTable() chose
   struct TableLayout {
-    const void *font = nullptr;  // a GFXfont
+    const void *font = nullptr;  // a g2::GFXfont
     int scale = 1, lineH = 0, gap = 0, panelGap = 0;
     int labelW = 0, colW[4] = {}, tableW = 0;
     int panels = 1, pages = 1;
@@ -833,7 +833,7 @@ class Renderer {
   void drawUpgradeStatus(g2::Graphics2D &g, int offsetY);
   // Sets the font and the magnification the members below draw text with
   void setHudFont(g2::Graphics2D &g, HudFont role) const;
-  void setHudFont(g2::Graphics2D &g, const GFXfont *font, int scale) const;
+  void setHudFont(g2::Graphics2D &g, const g2::GFXfont *font, int scale) const;
   // The text functions above at that magnification. Only the drawing
   // (band) side may call these: textScale_ is its state.
   mutable int textScale_ = 1;

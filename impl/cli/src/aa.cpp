@@ -62,7 +62,7 @@ void Converter::buildTable() {
   uint16_t px[BOX * BOX];
   g2::Surface s = g2::makeSurface(g2::PixelFormat::RGB565_SWAPPED, BOX, BOX, px);
   g2::Graphics2D g(s);
-  g.setFont(&ShapoSansMono_s08c07);
+  g.setFont(&g2::ShapoSansMono_s08c07);
   g.setTextColor(g2::Colors::WHITE);
   const int adv = g.charMetrics('M').width;
   const int lh = g.charMetrics('M').height;

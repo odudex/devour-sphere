@@ -178,7 +178,7 @@ void TouchPad::drawButton(g2::Graphics2D &g, int oy, const Circle &c, bool down,
   if (down) g.fillCircle(c.cx, c.cy - oy, c.r - 2, PAD_FILL_DOWN);
   ring(g, c.cx, c.cy - oy, c.r, line);
   if (label && *label) {
-    g.setFont(&ShapoSansP_s12c09a01w02);
+    g.setFont(&g2::ShapoSansP_s12c09a01w02);
     const int tw = devoursphere::render::textWidth(g, label, 2);
     g.setTextColor(line);
     devoursphere::render::drawText(g, c.cx - tw / 2,

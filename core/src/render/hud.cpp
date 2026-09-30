@@ -64,7 +64,7 @@ void drawText(g2::Graphics2D &g, int x, int y, const char *text, int scale) {
   g.resetTransform();
 }
 
-void Renderer::setHudFont(g2::Graphics2D &g, const GFXfont *font,
+void Renderer::setHudFont(g2::Graphics2D &g, const g2::GFXfont *font,
                           int scale) const {
   g.setFont(font);
   textScale_ = scale;
@@ -76,24 +76,24 @@ void Renderer::setHudFont(g2::Graphics2D &g, const GFXfont *font,
 void Renderer::setHudFont(g2::Graphics2D &g, HudFont role) const {
   const int m = ui_.fontMult;
   switch (role) {
-    case HudFont::SMALL: setHudFont(g, &ShapoSansP_s08c07, m); break;
+    case HudFont::SMALL: setHudFont(g, &g2::ShapoSansP_s08c07, m); break;
     case HudFont::MEDIUM:
       if (ui_.tiny)
-        setHudFont(g, &ShapoSansP_s08c07, m);
+        setHudFont(g, &g2::ShapoSansP_s08c07, m);
       else
-        setHudFont(g, &ShapoSansP_s12c09a01w02, m);
+        setHudFont(g, &g2::ShapoSansP_s12c09a01w02, m);
       break;
     case HudFont::LARGE:
       if (ui_.tiny)
-        setHudFont(g, &ShapoSansP_s08c07, m);
+        setHudFont(g, &g2::ShapoSansP_s08c07, m);
       else
-        setHudFont(g, &ShapoSansP_s21c16a01w03, m);
+        setHudFont(g, &g2::ShapoSansP_s21c16a01w03, m);
       break;
     case HudFont::TITLE:
       if (ui_.tiny)
-        setHudFont(g, &ShapoSansP_s12c09a01w02, m);
+        setHudFont(g, &g2::ShapoSansP_s12c09a01w02, m);
       else
-        setHudFont(g, &ShapoSansP_s21c16a01w03, ui_.compact ? m : 2 * m);
+        setHudFont(g, &g2::ShapoSansP_s21c16a01w03, ui_.compact ? m : 2 * m);
       break;
   }
 }
@@ -705,7 +705,7 @@ int Renderer::packHead(const TextTable &t, bool items, g2::Graphics2D &g,
 Renderer::TableLayout Renderer::layoutTable(const TextTable &t,
                                             const void *font, int scale) const {
   g2::Graphics2D g;
-  const GFXfont *f = (const GFXfont *)font;
+  const g2::GFXfont *f = (const g2::GFXfont *)font;
   g.setFont(f);
   TableLayout l;
   l.font = font;
@@ -758,13 +758,14 @@ int Renderer::showTable(const TextTable *table, int page) {
   table_ = table;
   tablePage_ = page;
   if (!table) return 0;
-  static const GFXfont *const FONTS[] = {
-      &ShapoSansMono_s08c07, &ShapoSansP_s07c05a01, &ShapoSansP_s05};
+  static const g2::GFXfont *const FONTS[] = {&g2::ShapoSansMono_s08c07,
+                                             &g2::ShapoSansP_s07c05a01,
+                                             &g2::ShapoSansP_s05};
   // Fewest pages among the layouts that fit the width, the biggest font
   // (the first tried) among those; if none fits, the narrowest
   bool first = true;
   for (int scale = ui_.fontMult; scale >= 1; scale--) {
-    for (const GFXfont *f : FONTS) {
+    for (const g2::GFXfont *f : FONTS) {
       TableLayout l = layoutTable(*table, f, scale);
       const bool better =
           first || (l.fits && !tl_.fits) ||
@@ -781,7 +782,7 @@ int Renderer::showTable(const TextTable *table, int page) {
 void Renderer::drawTextScreen(g2::Graphics2D &g, int oy) const {
   const TextTable &t = *table_;
   const TableLayout &l = tl_;
-  setHudFont(g, (const GFXfont *)l.font, l.scale);
+  setHudFont(g, (const g2::GFXfont *)l.font, l.scale);
   const g2::Color headColor = g2::makeColor(150, 255, 170);
   const g2::Color labelColor = g2::makeColor(120, 200, 140);
   const g2::Color valueColor = g2::makeColor(235, 240, 245);
@@ -835,7 +836,7 @@ void Renderer::drawTextScreen(g2::Graphics2D &g, int oy) const {
 
 void Renderer::drawBanner(g2::Graphics2D &g, int oy) const {
   const int m = ui_.fontMult;
-  setHudFont(g, &ShapoSansMono_s08c07, m);
+  setHudFont(g, &g2::ShapoSansMono_s08c07, m);
   const int w = textW(g, banner_), hgt = TEXT_ADV_Y * m;
   const int x = (w_ - w) / 2, y = h_ - ui_.margin - hgt - hgt / 2;
   g.fillRect(x - 2 * m, y - m + oy, w + 4 * m, hgt + m,
